@@ -1,4 +1,4 @@
-package io.baris.coffeeshop.system;
+package io.baris.coffeeshop.system.config;
 
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  * Vet service configuration
  */
 @Data
-public class CoffeeShopConfiguration extends Configuration {
+public class CoffeeShopConfig extends Configuration {
 
     @Valid
     @NotNull
@@ -19,4 +19,7 @@ public class CoffeeShopConfiguration extends Configuration {
 
     @NotNull
     private DatabaseConfig databaseConfig;
+
+    @NotNull
+    private InventoryConfig inventoryConfig;
 }

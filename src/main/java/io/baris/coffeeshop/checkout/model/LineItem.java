@@ -18,11 +18,4 @@ public class LineItem {
 
     @Min(value = 1)
     int quantity;
-
-    public int inventoryQuantity() {
-        if ("coffee".equals(product)) {
-            return 20 * quantity;
-        }
-        return quantity;
-    }
 }

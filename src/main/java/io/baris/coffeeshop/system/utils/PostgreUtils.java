@@ -1,4 +1,4 @@
-package io.baris.coffeeshop.system;
+package io.baris.coffeeshop.system.utils;
 
 import org.jdbi.v3.core.Jdbi;
 

@@ -7,6 +7,8 @@ import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jdbi.v3.sqlobject.transaction.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -14,6 +16,8 @@ import java.util.List;
  * Manages pets in the database
  */
 public interface InventoryRepository {
+
+    Logger log = LoggerFactory.getLogger(InventoryRepository.class);
 
     @SqlQuery("SELECT * FROM inventory ORDER BY product")
     @RegisterBeanMapper(Event.class)
@@ -26,13 +30,14 @@ public interface InventoryRepository {
     void insertProduct(String product, int quantity, ProductUnit unit);
 
     @Transaction
-    default InventoryProduct updateProduct(final InventoryProduct inventoryProduct) {
+    default InventoryProduct updateInventory(final InventoryProduct inventoryProduct) {
         deleteProduct(inventoryProduct.getProduct());
         insertProduct(
             inventoryProduct.getProduct(),
             inventoryProduct.getQuantity(),
             inventoryProduct.getUnit()
         );
+        log.info("Updated inventory with {}", inventoryProduct);
         return inventoryProduct;
     }
 }

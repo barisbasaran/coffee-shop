@@ -2,7 +2,7 @@ package io.baris.coffeeshop.event.model;
 
 import java.time.Instant;
 
-import static io.baris.coffeeshop.system.SystemUtils.toJsonString;
+import static io.baris.coffeeshop.system.utils.SystemUtils.toJsonString;
 
 public interface Command<T> {
 

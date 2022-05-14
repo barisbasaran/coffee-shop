@@ -22,3 +22,7 @@ logging:
     io.baris.coffeeshop: DEBUG
     org.hibernate.SQL:
       level: DEBUG
+
+inventoryConfig:
+  productQuantities:
+    coffee: 20

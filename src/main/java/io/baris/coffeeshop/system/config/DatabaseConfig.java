@@ -1,4 +1,4 @@
-package io.baris.coffeeshop.system;
+package io.baris.coffeeshop.system.config;
 
 import lombok.Data;
 

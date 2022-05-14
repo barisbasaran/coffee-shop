@@ -1,4 +1,4 @@
-package io.baris.coffeeshop.system;
+package io.baris.coffeeshop.system.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -5,7 +5,7 @@ import org.jdbi.v3.core.Jdbi;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import static io.baris.coffeeshop.system.PostgreUtils.applySqlScript;
+import static io.baris.coffeeshop.system.utils.PostgreUtils.applySqlScript;
 
 /**
  * Junit rule to truncate DB tables to clean them for a fresh start for each test case

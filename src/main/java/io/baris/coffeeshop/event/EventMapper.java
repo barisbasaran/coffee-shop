@@ -4,7 +4,7 @@ import io.baris.coffeeshop.checkout.model.ShoppingCart;
 import io.baris.coffeeshop.event.model.Event;
 import io.baris.coffeeshop.stock.model.AddStock;
 
-import static io.baris.coffeeshop.system.SystemUtils.toObject;
+import static io.baris.coffeeshop.system.utils.SystemUtils.toObject;
 
 public class EventMapper {
 

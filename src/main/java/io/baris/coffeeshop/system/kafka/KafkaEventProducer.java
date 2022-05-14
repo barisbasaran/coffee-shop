@@ -13,6 +13,10 @@ import java.util.Map;
 
 import static io.baris.coffeeshop.system.kafka.KafkaUtils.getBootstrapServers;
 import static io.baris.coffeeshop.system.kafka.KafkaUtils.getTopic;
+import static org.apache.kafka.clients.producer.ProducerConfig.ACKS_CONFIG;
+import static org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG;
+import static org.apache.kafka.clients.producer.ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG;
+import static org.apache.kafka.clients.producer.ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG;
 
 /**
  * Publishes events to the kafka topics
@@ -38,10 +42,10 @@ public class KafkaEventProducer {
 
     private static Map<String, Object> getKafkaProducerConfig() {
         return Map.of(
-            "bootstrap.servers", getBootstrapServers(),
-            "key.serializer", "io.baris.coffeeshop.system.kafka.serialization.EventTypeSerializer",
-            "value.serializer", "io.baris.coffeeshop.system.kafka.serialization.EventSerializer",
-            "acks", "1"
+            BOOTSTRAP_SERVERS_CONFIG, getBootstrapServers(),
+            KEY_SERIALIZER_CLASS_CONFIG, "io.baris.coffeeshop.system.kafka.serialization.EventTypeSerializer",
+            VALUE_SERIALIZER_CLASS_CONFIG, "io.baris.coffeeshop.system.kafka.serialization.EventSerializer",
+            ACKS_CONFIG, "1"
         );
     }
 }

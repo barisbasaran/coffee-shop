@@ -1,8 +1,8 @@
 package io.baris.coffeeshop.system.config;
 
-import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 public class DatabaseConfig {
 
     String name;

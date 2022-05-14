@@ -1,12 +1,12 @@
 package io.baris.coffeeshop.system.config;
 
 import io.baris.coffeeshop.product.model.ProductUnit;
-import lombok.Data;
+import lombok.Value;
 
 import java.util.Map;
 import java.util.Optional;
 
-@Data
+@Value
 public class InventoryConfig {
 
     private static ProductConfig DEFAULT_PRODUCT_CONFIG = new ProductConfig(ProductUnit.ITEM, 1);

@@ -17,6 +17,7 @@ import static io.baris.coffeeshop.event.EventMapper.mapToAddStock;
 import static io.baris.coffeeshop.event.EventMapper.mapToShoppingCart;
 import static io.baris.coffeeshop.system.kafka.KafkaUtils.getBootstrapServers;
 import static io.baris.coffeeshop.system.kafka.KafkaUtils.getTopic;
+import static org.apache.kafka.clients.consumer.ConsumerConfig.*;
 
 /**
  * Subscribes to kafka topics to receive events
@@ -56,14 +57,14 @@ public class KafkaEventConsumer {
 
     private static Map<String, Object> getKafkaConsumerConfig() {
         return Map.of(
-            "bootstrap.servers", getBootstrapServers(),
-            "key.deserializer", "io.baris.coffeeshop.system.kafka.serialization.EventTypeDeserializer",
-            "value.deserializer", "io.baris.coffeeshop.system.kafka.serialization.EventDeserializer",
-            "group.id", "test",
-            "auto.offset.reset", "earliest",
-            "enable.auto.commit", "true",
-            "auto.commit.interval.ms", "1000",
-            "session.timeout.ms", "30000"
+            BOOTSTRAP_SERVERS_CONFIG, getBootstrapServers(),
+            KEY_DESERIALIZER_CLASS_CONFIG, "io.baris.coffeeshop.system.kafka.serialization.EventTypeDeserializer",
+            VALUE_DESERIALIZER_CLASS_CONFIG, "io.baris.coffeeshop.system.kafka.serialization.EventDeserializer",
+            GROUP_ID_CONFIG, "test",
+            AUTO_OFFSET_RESET_CONFIG, "earliest",
+            ENABLE_AUTO_COMMIT_CONFIG, "true",
+            AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000",
+            SESSION_TIMEOUT_MS_CONFIG, "30000"
         );
     }
 }

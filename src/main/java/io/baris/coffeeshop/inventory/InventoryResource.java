@@ -26,7 +26,7 @@ public class InventoryResource {
 
     @Path("/products")
     @GET
-    public List<InventoryProduct> getProducts() {
-        return inventoryManager.getProducts();
+    public List<InventoryProduct> getInventoryProducts() {
+        return inventoryManager.getInventoryProducts();
     }
 }

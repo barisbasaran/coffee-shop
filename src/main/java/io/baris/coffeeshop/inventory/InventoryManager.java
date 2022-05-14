@@ -23,7 +23,7 @@ public class InventoryManager {
     private final Jdbi jdbi;
     private final InventoryConfig inventoryConfig;
 
-    public List<InventoryProduct> getProducts() {
+    public List<InventoryProduct> getInventoryProducts() {
         return jdbi.withExtension(InventoryRepository.class, InventoryRepository::getProducts);
     }
 
@@ -37,7 +37,7 @@ public class InventoryManager {
         updateTotalQuantity(addStock.getProduct());
     }
 
-    private void updateTotalQuantity(String product) {
+    private void updateTotalQuantity(final String product) {
         var totalQuantity = calculateTotalQuantity(product);
 
         var inventoryProduct = InventoryProduct.builder()
@@ -49,7 +49,7 @@ public class InventoryManager {
             dao.updateInventory(inventoryProduct));
     }
 
-    private int calculateTotalQuantity(String product) {
+    private int calculateTotalQuantity(final String product) {
         int totalQuantity = 0;
         for (var event : eventManager.getAllEvents()) {
             switch (event.getEventType()) {

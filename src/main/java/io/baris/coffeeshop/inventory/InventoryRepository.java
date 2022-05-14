@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- * Manages pets in the database
+ * Manages inventory in the database
  */
 public interface InventoryRepository {
 

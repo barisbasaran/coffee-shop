@@ -1,11 +1,11 @@
-package io.baris.coffeeshop.checkout.model;
+package io.baris.coffeeshop.cqrs.command;
 
-import io.baris.coffeeshop.event.model.Command;
-import io.baris.coffeeshop.event.model.EventType;
+import io.baris.coffeeshop.checkout.model.ShoppingCart;
+import io.baris.coffeeshop.cqrs.event.model.EventType;
 import lombok.Builder;
 import lombok.Value;
 
-import static io.baris.coffeeshop.event.model.EventType.CHECKOUT;
+import static io.baris.coffeeshop.cqrs.event.model.EventType.CHECKOUT;
 
 /**
  * Command for checkout

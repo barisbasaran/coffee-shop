@@ -39,4 +39,4 @@ services:
       - db
       - kafka
     profiles:
-      - prod
+      - local

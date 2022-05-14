@@ -12,7 +12,7 @@ Run `mvn package` to build project with _Maven_.
 
 ### Start application
 
-Run `docker-compose up` to start application with _Docker_.
+Run `docker-compose --profile local up` to start application with _Docker_.
 
 To check that your application is running enter url `http://localhost:8080/`
 

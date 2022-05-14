@@ -1,6 +1,7 @@
-package io.baris.coffeeshop.event;
+package io.baris.coffeeshop.cqrs.event;
 
-import io.baris.coffeeshop.event.model.Event;
+import io.baris.coffeeshop.cqrs.event.EventManager;
+import io.baris.coffeeshop.cqrs.event.model.Event;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

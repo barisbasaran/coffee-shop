@@ -13,7 +13,7 @@ import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * Utilities for Coffee Shop application
+ * System utilities
  */
 public class SystemUtils {
 

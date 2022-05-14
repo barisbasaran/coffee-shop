@@ -8,7 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * Vet service configuration
+ * Application configuration
  */
 @Data
 public class CoffeeShopConfig extends Configuration {

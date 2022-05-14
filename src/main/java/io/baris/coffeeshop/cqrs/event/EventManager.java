@@ -1,6 +1,6 @@
-package io.baris.coffeeshop.event;
+package io.baris.coffeeshop.cqrs.event;
 
-import io.baris.coffeeshop.event.model.Event;
+import io.baris.coffeeshop.cqrs.event.model.Event;
 import lombok.RequiredArgsConstructor;
 import org.jdbi.v3.core.Jdbi;
 
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Manages the pet
+ * Manages the events
  */
 @RequiredArgsConstructor
 public class EventManager {

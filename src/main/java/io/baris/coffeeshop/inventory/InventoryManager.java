@@ -2,7 +2,7 @@ package io.baris.coffeeshop.inventory;
 
 import io.baris.coffeeshop.checkout.model.LineItem;
 import io.baris.coffeeshop.checkout.model.ShoppingCart;
-import io.baris.coffeeshop.event.EventManager;
+import io.baris.coffeeshop.cqrs.event.EventManager;
 import io.baris.coffeeshop.inventory.model.InventoryProduct;
 import io.baris.coffeeshop.stock.model.AddStock;
 import io.baris.coffeeshop.system.config.InventoryConfig;
@@ -12,9 +12,12 @@ import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
 
-import static io.baris.coffeeshop.event.EventMapper.mapToAddStock;
-import static io.baris.coffeeshop.event.EventMapper.mapToShoppingCart;
+import static io.baris.coffeeshop.cqrs.event.EventMapper.mapToAddStock;
+import static io.baris.coffeeshop.cqrs.event.EventMapper.mapToShoppingCart;
 
+/**
+ * Manages inventory
+ */
 @Slf4j
 @RequiredArgsConstructor
 public class InventoryManager {

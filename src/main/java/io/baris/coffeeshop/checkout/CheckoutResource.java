@@ -1,8 +1,8 @@
 package io.baris.coffeeshop.checkout;
 
-import io.baris.coffeeshop.checkout.model.CheckoutCommand;
 import io.baris.coffeeshop.checkout.model.ShoppingCart;
-import io.baris.coffeeshop.system.kafka.KafkaEventProducer;
+import io.baris.coffeeshop.cqrs.command.CheckoutCommand;
+import io.baris.coffeeshop.cqrs.command.CommandHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,14 +25,14 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @RequiredArgsConstructor
 public class CheckoutResource {
 
-    private final KafkaEventProducer kafkaEventProducer;
+    private final CommandHandler commandHandler;
 
     @PUT
     public Response checkout(final @Valid ShoppingCart shoppingCart) {
         var checkoutCommand = CheckoutCommand.builder()
             .shoppingCart(shoppingCart)
             .build();
-        kafkaEventProducer.publishEvent(checkoutCommand);
+        commandHandler.handleCommand(checkoutCommand);
 
         return Response.accepted(checkoutCommand).build();
     }

@@ -1,8 +1,8 @@
 package io.baris.coffeeshop.system.kafka;
 
-import io.baris.coffeeshop.event.model.Command;
-import io.baris.coffeeshop.event.model.Event;
-import io.baris.coffeeshop.event.model.EventType;
+import io.baris.coffeeshop.cqrs.command.Command;
+import io.baris.coffeeshop.cqrs.event.model.Event;
+import io.baris.coffeeshop.cqrs.event.model.EventType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -19,7 +19,7 @@ import static org.apache.kafka.clients.producer.ProducerConfig.KEY_SERIALIZER_CL
 import static org.apache.kafka.clients.producer.ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG;
 
 /**
- * Publishes events to the kafka topics
+ * Produces events in kafka
  */
 @Slf4j
 @RequiredArgsConstructor

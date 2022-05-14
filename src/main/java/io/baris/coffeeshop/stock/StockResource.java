@@ -1,8 +1,8 @@
 package io.baris.coffeeshop.stock;
 
+import io.baris.coffeeshop.cqrs.command.CommandHandler;
+import io.baris.coffeeshop.cqrs.command.AddStockCommand;
 import io.baris.coffeeshop.stock.model.AddStock;
-import io.baris.coffeeshop.stock.model.AddStockCommand;
-import io.baris.coffeeshop.system.kafka.KafkaEventProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
- * Serves checkout endpoints
+ * Serves stock endpoints
  */
 @Path("/stocks")
 @Consumes(APPLICATION_JSON)
@@ -25,14 +25,14 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @RequiredArgsConstructor
 public class StockResource {
 
-    private final KafkaEventProducer kafkaEventProducer;
+    private final CommandHandler commandHandler;
 
     @PUT
     public Response addStock(final @Valid AddStock addStock) {
         var addStockCommand = AddStockCommand.builder()
             .addStock(addStock)
             .build();
-        kafkaEventProducer.publishEvent(addStockCommand);
+        commandHandler.handleCommand(addStockCommand);
 
         return Response.accepted(addStockCommand).build();
     }

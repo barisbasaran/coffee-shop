@@ -1,6 +1,6 @@
 package io.baris.coffeeshop.testing;
 
-import io.baris.coffeeshop.event.EventManager;
+import io.baris.coffeeshop.cqrs.event.EventManager;
 import lombok.Getter;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;

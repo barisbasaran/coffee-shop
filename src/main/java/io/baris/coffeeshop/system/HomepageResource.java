@@ -1,4 +1,4 @@
-package io.baris.coffeeshop.homepage;
+package io.baris.coffeeshop.system;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Home resource to serve homepage
+ * Serves homepage
  */
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)

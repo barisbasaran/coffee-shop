@@ -1,9 +1,8 @@
 package io.baris.coffeeshop.system.kafka;
 
-import io.baris.coffeeshop.event.EventManager;
-import io.baris.coffeeshop.event.model.Event;
-import io.baris.coffeeshop.event.model.EventType;
-import io.baris.coffeeshop.inventory.InventoryManager;
+import io.baris.coffeeshop.cqrs.project.Projector;
+import io.baris.coffeeshop.cqrs.event.model.Event;
+import io.baris.coffeeshop.cqrs.event.model.EventType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;
@@ -13,22 +12,19 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
-import static io.baris.coffeeshop.event.EventMapper.mapToAddStock;
-import static io.baris.coffeeshop.event.EventMapper.mapToShoppingCart;
 import static io.baris.coffeeshop.system.kafka.KafkaUtils.getBootstrapServers;
 import static io.baris.coffeeshop.system.kafka.KafkaUtils.getTopic;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.*;
 
 /**
- * Subscribes to kafka topics to receive events
+ * Consumes events in kafka
  */
 @Slf4j
 @RequiredArgsConstructor
 public class KafkaEventConsumer {
 
     private final Consumer<EventType, Event> consumer;
-    private final EventManager eventManager;
-    private final InventoryManager inventoryManager;
+    private final Projector projector;
 
     public static Consumer<EventType, Event> createKafkaConsumer() {
         return new KafkaConsumer<>(getKafkaConsumerConfig());
@@ -37,21 +33,13 @@ public class KafkaEventConsumer {
     public void subscribe() {
         consumer.subscribe(List.of(getTopic()));
         while (true) {
-            var records = consumer.poll(Duration.ofMillis(100));
-            for (var record : records) {
-                log.info("Event received for key={}, partition={}, offset={}, value={}",
-                    record.key(), record.partition(), record.offset(), record.value()
-                );
-                eventManager.createEvent(record.value());
-
-                switch (record.key()) {
-                    case CHECKOUT -> inventoryManager
-                        .updateInventory(mapToShoppingCart(record.value()));
-                    case ADD_STOCK -> inventoryManager
-                        .updateInventory(mapToAddStock(record.value()));
-                    default -> log.info("No service found for key={}", record.key());
-                }
-            }
+            consumer.poll(Duration.ofMillis(100))
+                .forEach(record -> {
+                    log.info("Event received for key={}, partition={}, offset={}, value={}",
+                        record.key(), record.partition(), record.offset(), record.value()
+                    );
+                    projector.projectData(record.value());
+                });
         }
     }
 

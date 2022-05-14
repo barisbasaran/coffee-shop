@@ -1,7 +1,7 @@
-package io.baris.coffeeshop.event;
+package io.baris.coffeeshop.cqrs.event;
 
-import io.baris.coffeeshop.event.model.Event;
-import io.baris.coffeeshop.event.model.EventType;
+import io.baris.coffeeshop.cqrs.event.model.Event;
+import io.baris.coffeeshop.cqrs.event.model.EventType;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Manages pets in the database
+ * Manages events in the database
  */
 public interface EventRepository {
 

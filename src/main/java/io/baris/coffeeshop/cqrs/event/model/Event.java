@@ -1,4 +1,4 @@
-package io.baris.coffeeshop.event.model;
+package io.baris.coffeeshop.cqrs.event.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

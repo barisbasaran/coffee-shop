@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Value;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * Represents a line item in a shopping cart
@@ -12,7 +13,16 @@ import javax.validation.constraints.Min;
 @Builder
 public class LineItem {
 
+    @NotEmpty
     String product;
-    @Min(value = 1, message = "Quantity must be greater than zero")
+
+    @Min(value = 1)
     int quantity;
+
+    public int inventoryQuantity() {
+        if ("coffee".equals(product)) {
+            return 20 * quantity;
+        }
+        return quantity;
+    }
 }

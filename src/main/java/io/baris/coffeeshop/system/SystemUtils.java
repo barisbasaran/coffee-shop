@@ -37,6 +37,12 @@ public class SystemUtils {
         );
     }
 
+    public static <T> T toObject(final String jsonStr, Class<T> clazz) {
+        return escapeException(() ->
+            objectMapper.readValue(jsonStr, clazz)
+        );
+    }
+
     public static String readFileToString(final String path) {
         return escapeException(() ->
             isClasspathResource(path) ?

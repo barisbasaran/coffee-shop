@@ -14,7 +14,7 @@ import java.util.Optional;
 /**
  * Manages pets in the database
  */
-public interface EventDao {
+public interface EventRepository {
 
     @SqlQuery("SELECT * FROM events ORDER BY event_time")
     @RegisterBeanMapper(Event.class)

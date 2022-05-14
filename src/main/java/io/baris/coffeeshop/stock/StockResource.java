@@ -1,8 +1,8 @@
-package io.baris.coffeeshop.checkout;
+package io.baris.coffeeshop.stock;
 
-import io.baris.coffeeshop.checkout.model.CheckoutCommand;
-import io.baris.coffeeshop.checkout.model.ShoppingCart;
 import io.baris.coffeeshop.event.EventProducer;
+import io.baris.coffeeshop.stock.model.AddStock;
+import io.baris.coffeeshop.stock.model.AddStockCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,24 +19,24 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 /**
  * Serves checkout endpoints
  */
-@Path("/checkout")
+@Path("/stocks")
 @Consumes(APPLICATION_JSON)
 @Produces(APPLICATION_JSON)
 @Slf4j
 @RequiredArgsConstructor
-public class CheckoutResource {
+public class StockResource {
 
     private final EventProducer eventProducer;
 
     @PUT
-    public Response checkout(final @Valid ShoppingCart shoppingCart) {
-        var checkoutCommand = CheckoutCommand.builder()
-            .shoppingCart(shoppingCart)
+    public Response addStock(final @Valid AddStock addStock) {
+        var addStockCommand = AddStockCommand.builder()
+            .addStock(addStock)
             .build();
         eventProducer
-            .createEvent(checkoutCommand)
-            .orElseThrow(() -> new InternalServerErrorException("Checkout failed"));
+            .createEvent(addStockCommand)
+            .orElseThrow(() -> new InternalServerErrorException("Adding stock failed"));
 
-        return Response.accepted(checkoutCommand).build();
+        return Response.accepted(addStockCommand).build();
     }
 }

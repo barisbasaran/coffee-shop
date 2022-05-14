@@ -1,10 +1,13 @@
 package io.baris.coffeeshop;
 
 import io.baris.coffeeshop.checkout.CheckoutResource;
+import io.baris.coffeeshop.event.EventConsumer;
 import io.baris.coffeeshop.event.EventManager;
+import io.baris.coffeeshop.event.EventProducer;
 import io.baris.coffeeshop.event.EventResource;
 import io.baris.coffeeshop.homepage.HomepageResource;
-import io.baris.coffeeshop.inventory.InventoryResource;
+import io.baris.coffeeshop.inventory.InventoryManager;
+import io.baris.coffeeshop.stock.StockResource;
 import io.baris.coffeeshop.system.CoffeeShopConfiguration;
 import io.baris.coffeeshop.system.CoffeeShopHealthCheck;
 import io.baris.coffeeshop.system.SystemUtils;
@@ -61,10 +64,13 @@ public class CoffeeShopApplication extends Application<CoffeeShopConfiguration> 
         applySqlScript(jdbi, configuration.getDatabaseConfig().getInitScript());
 
         var eventManager = new EventManager(jdbi);
+        var inventoryManager = new InventoryManager(eventManager, jdbi);
+        var eventConsumer = new EventConsumer(eventManager, inventoryManager);
+        var eventProducer = new EventProducer(eventConsumer);
 
         // register resources
-        environment.jersey().register(new CheckoutResource(eventManager));
-        environment.jersey().register(new InventoryResource(eventManager));
+        environment.jersey().register(new CheckoutResource(eventProducer));
+        environment.jersey().register(new StockResource(eventProducer));
         environment.jersey().register(new EventResource(eventManager));
         environment.jersey().register(new HomepageResource());
         environment.jersey().register(new OpenApiResource());

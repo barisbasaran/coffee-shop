@@ -10,9 +10,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jdbi.v3.core.Jdbi;
 
+import java.util.List;
+
 import static io.baris.coffeeshop.event.EventMapper.mapToAddStock;
 import static io.baris.coffeeshop.event.EventMapper.mapToShoppingCart;
-import static io.baris.coffeeshop.product.model.ProductUnit.getProductUnit;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,6 +22,10 @@ public class InventoryManager {
     private final EventManager eventManager;
     private final Jdbi jdbi;
     private final InventoryConfig inventoryConfig;
+
+    public List<InventoryProduct> getProducts() {
+        return jdbi.withExtension(InventoryRepository.class, InventoryRepository::getProducts);
+    }
 
     public void updateInventory(final ShoppingCart shoppingCart) {
         shoppingCart.getLineItems().stream()
@@ -38,7 +43,7 @@ public class InventoryManager {
         var inventoryProduct = InventoryProduct.builder()
             .product(product)
             .quantity(totalQuantity)
-            .unit(getProductUnit(product))
+            .unit(inventoryConfig.getProductUnit(product))
             .build();
         jdbi.withExtension(InventoryRepository.class, dao ->
             dao.updateInventory(inventoryProduct));
@@ -59,7 +64,7 @@ public class InventoryManager {
                     for (var lineItem : shoppingCart.getLineItems()) {
                         if (product.equals(lineItem.getProduct())) {
                             totalQuantity -= lineItem.getQuantity()
-                                * inventoryConfig.getQuantity(lineItem.getProduct());
+                                * inventoryConfig.getProductQuantity(lineItem.getProduct());
                         }
                     }
                 }

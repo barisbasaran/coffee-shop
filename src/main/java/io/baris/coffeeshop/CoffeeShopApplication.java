@@ -5,6 +5,7 @@ import io.baris.coffeeshop.event.EventManager;
 import io.baris.coffeeshop.event.EventResource;
 import io.baris.coffeeshop.homepage.HomepageResource;
 import io.baris.coffeeshop.inventory.InventoryManager;
+import io.baris.coffeeshop.inventory.InventoryResource;
 import io.baris.coffeeshop.stock.StockResource;
 import io.baris.coffeeshop.system.config.CoffeeShopConfig;
 import io.baris.coffeeshop.system.CoffeeShopHealthCheck;
@@ -75,6 +76,7 @@ public class CoffeeShopApplication extends Application<CoffeeShopConfig> {
         environment.jersey().register(new CheckoutResource(kafkaEventProducer));
         environment.jersey().register(new StockResource(kafkaEventProducer));
         environment.jersey().register(new EventResource(eventManager));
+        environment.jersey().register(new InventoryResource(inventoryManager));
         environment.jersey().register(new HomepageResource());
         environment.jersey().register(new OpenApiResource());
 

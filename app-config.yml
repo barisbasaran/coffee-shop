@@ -23,5 +23,8 @@ logging:
     io.baris.coffeeshop: DEBUG
 
 inventoryConfig:
-  productQuantities:
-    coffee: 20
+  productConfig:
+    coffee:
+      quantity: 20
+      unit: GR
+

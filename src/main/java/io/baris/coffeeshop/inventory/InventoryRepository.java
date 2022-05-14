@@ -1,6 +1,5 @@
 package io.baris.coffeeshop.inventory;
 
-import io.baris.coffeeshop.event.model.Event;
 import io.baris.coffeeshop.inventory.model.InventoryProduct;
 import io.baris.coffeeshop.product.model.ProductUnit;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
@@ -20,7 +19,7 @@ public interface InventoryRepository {
     Logger log = LoggerFactory.getLogger(InventoryRepository.class);
 
     @SqlQuery("SELECT * FROM inventory ORDER BY product")
-    @RegisterBeanMapper(Event.class)
+    @RegisterBeanMapper(InventoryProduct.class)
     List<InventoryProduct> getProducts();
 
     @SqlUpdate("DELETE FROM inventory WHERE product = ?")

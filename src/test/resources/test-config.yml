@@ -24,5 +24,6 @@ logging:
       level: DEBUG
 
 inventoryConfig:
-  productQuantities:
-    coffee: 20
+  coffee:
+    quantity: 20
+    unit: GR

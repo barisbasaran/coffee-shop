@@ -50,5 +50,5 @@ You may see application's health at `http://localhost:8081/healthcheck`
 
 ## Architecture
 
-![Architecture](docs/CQRS%20Example.jpg)
+![Architecture](docs/architecture1.jpg)
 

@@ -1,11 +1,11 @@
 package io.baris.coffeeshop.system.config;
 
-import lombok.Value;
+import lombok.Data;
 
-@Value
+@Data
 public class DatabaseConfig {
 
-    String name;
-    String dockerImage;
-    String initScript;
+    private String name;
+    private String dockerImage;
+    private String initScript;
 }

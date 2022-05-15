@@ -1,3 +1,5 @@
+env: test
+
 database:
   driverClass: org.postgresql.Driver
   user: postgres
@@ -24,6 +26,7 @@ logging:
       level: DEBUG
 
 inventoryConfig:
-  coffee:
-    quantity: 20
-    unit: GR
+  productConfig:
+    coffee:
+      quantity: 20
+      unit: GR

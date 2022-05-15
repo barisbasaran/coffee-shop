@@ -1,10 +1,14 @@
 package io.baris.coffeeshop.system.config;
 
 import io.baris.coffeeshop.inventory.model.ProductUnit;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Value
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductConfig {
-    ProductUnit unit;
-    int quantity;
+    private ProductUnit unit;
+    private int quantity;
 }

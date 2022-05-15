@@ -5,6 +5,7 @@ import io.dropwizard.db.DataSourceFactory;
 import lombok.Data;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -12,6 +13,9 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 public class CoffeeShopConfig extends Configuration {
+
+    @NotEmpty
+    private String env;
 
     @Valid
     @NotNull
@@ -22,4 +26,8 @@ public class CoffeeShopConfig extends Configuration {
 
     @NotNull
     private InventoryConfig inventoryConfig;
+
+    public boolean testEnv() {
+        return "test".equalsIgnoreCase(env);
+    }
 }

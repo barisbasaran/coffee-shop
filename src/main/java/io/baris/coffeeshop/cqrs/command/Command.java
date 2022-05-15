@@ -8,7 +8,7 @@ import java.time.Instant;
 import static io.baris.coffeeshop.system.utils.SystemUtils.toJsonString;
 
 /**
- * Represents commands to change state in the system
+ * Represents a command to change the state of the application
  *
  * @param <T>
  */

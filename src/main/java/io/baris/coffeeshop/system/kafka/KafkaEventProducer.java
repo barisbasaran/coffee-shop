@@ -3,9 +3,13 @@ package io.baris.coffeeshop.system.kafka;
 import io.baris.coffeeshop.cqrs.command.Command;
 import io.baris.coffeeshop.cqrs.event.model.Event;
 import io.baris.coffeeshop.cqrs.event.model.EventType;
+import io.baris.coffeeshop.system.config.CoffeeShopConfig;
+import io.baris.coffeeshop.system.kafka.serialization.EventSerializer;
+import io.baris.coffeeshop.system.kafka.serialization.EventTypeSerializer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.MockProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
@@ -27,8 +31,12 @@ public class KafkaEventProducer {
 
     private final Producer<EventType, Event> producer;
 
-    public static Producer<EventType, Event> createKafkaProducer() {
-        return new KafkaProducer<>(getKafkaProducerConfig());
+    public KafkaEventProducer(
+        final CoffeeShopConfig config
+    ) {
+        this.producer = config.testEnv()
+            ? new MockProducer<>(false, new EventTypeSerializer(), new EventSerializer())
+            : new KafkaProducer<>(getKafkaProducerConfig());
     }
 
     public <T> void publishEvent(final Command<T> command) {

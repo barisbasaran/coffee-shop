@@ -5,11 +5,11 @@ import io.baris.coffeeshop.cqrs.command.CommandHandler;
 import io.baris.coffeeshop.cqrs.event.EventManager;
 import io.baris.coffeeshop.cqrs.event.EventResource;
 import io.baris.coffeeshop.cqrs.project.Projector;
-import io.baris.coffeeshop.system.HomepageResource;
 import io.baris.coffeeshop.inventory.InventoryManager;
 import io.baris.coffeeshop.inventory.InventoryResource;
 import io.baris.coffeeshop.stock.StockResource;
 import io.baris.coffeeshop.system.CoffeeShopHealthCheck;
+import io.baris.coffeeshop.system.HomepageResource;
 import io.baris.coffeeshop.system.config.CoffeeShopConfig;
 import io.baris.coffeeshop.system.kafka.KafkaEventConsumer;
 import io.baris.coffeeshop.system.kafka.KafkaEventProducer;
@@ -24,8 +24,6 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 import java.util.concurrent.Executors;
 
 import static io.baris.coffeeshop.system.config.CorsConfigurer.configureCors;
-import static io.baris.coffeeshop.system.kafka.KafkaEventConsumer.createKafkaConsumer;
-import static io.baris.coffeeshop.system.kafka.KafkaEventProducer.createKafkaProducer;
 import static io.baris.coffeeshop.system.utils.PostgreUtils.applySqlScript;
 
 /**
@@ -70,7 +68,7 @@ public class CoffeeShopApplication extends Application<CoffeeShopConfig> {
         // initialize DB schema
         applySqlScript(jdbi, configuration.getDatabaseConfig().getInitScript());
 
-        var kafkaEventProducer = new KafkaEventProducer(createKafkaProducer());
+        var kafkaEventProducer = new KafkaEventProducer(configuration);
         var eventManager = new EventManager(jdbi);
         var inventoryManager = new InventoryManager(eventManager, jdbi, configuration.getInventoryConfig());
         var commandHandler = new CommandHandler(eventManager, kafkaEventProducer);
@@ -85,8 +83,7 @@ public class CoffeeShopApplication extends Application<CoffeeShopConfig> {
 
         var projector = new Projector(inventoryManager);
         Executors.newSingleThreadExecutor().submit(() ->
-            new KafkaEventConsumer(createKafkaConsumer(), projector)
-                .subscribe()
+            new KafkaEventConsumer(projector, configuration).subscribe()
         );
     }
 }

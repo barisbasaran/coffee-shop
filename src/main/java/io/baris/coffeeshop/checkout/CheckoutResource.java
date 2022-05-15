@@ -34,6 +34,6 @@ public class CheckoutResource {
             .build();
         commandHandler.handleCommand(checkoutCommand);
 
-        return Response.accepted(checkoutCommand).build();
+        return Response.ok(checkoutCommand).build();
     }
 }

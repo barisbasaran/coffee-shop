@@ -34,6 +34,6 @@ public class StockResource {
             .build();
         commandHandler.handleCommand(addStockCommand);
 
-        return Response.accepted(addStockCommand).build();
+        return Response.ok(addStockCommand).build();
     }
 }

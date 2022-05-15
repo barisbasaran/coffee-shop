@@ -32,9 +32,27 @@ With CQRS pattern, the data for **commands** and **queries** are **split** in th
 
 By splitting the commands and queries, the CQRS allows developers to use **different models to read and write data**.
 
-![CQRS](docs/cqrs3.jpg)
+![CQRS](docs/design3.2.jpg)
 
-## Setup
+## REST and Database Design
+
+The coffee shop has to manage its stocks. 
+
+The stocks go up when new products are added through the `PUT /stocks` endpoint.
+
+The stocks go down when the products are sold through the `PUT /checkout` endpoint.
+
+All updates in the stocks are saved as events in the `events` table which corresponds to the **update model**.
+
+Then these events are projected to the `stocks` table which corresponds to the **read model**.
+
+![Architecture](docs/design1.1.jpg)
+
+## Application Design
+
+![Architecture](docs/design2.jpg)
+
+## Installation
 
 ### Build project
 
@@ -47,8 +65,3 @@ Run `docker-compose --profile local up` to start application with _Docker_.
 To check that your application is running enter url `http://localhost:8080/`
 
 You may see application's health at `http://localhost:8081/healthcheck`
-
-## Architecture
-
-![Architecture](docs/architecture1.jpg)
-

@@ -25,7 +25,7 @@ public class CoffeeShopConfig extends Configuration {
     private DatabaseConfig databaseConfig;
 
     @NotNull
-    private InventoryConfig inventoryConfig;
+    private StocksConfig stocksConfig;
 
     public boolean testEnv() {
         return "test".equalsIgnoreCase(env);

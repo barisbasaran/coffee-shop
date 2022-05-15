@@ -5,10 +5,10 @@ CREATE TABLE IF NOT EXISTS events
     event      TEXT      NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS inventory
+CREATE TABLE IF NOT EXISTS stocks
 (
-    product  TEXT    NOT NULL,
-    quantity INTEGER NOT NULL,
-    unit     TEXT    NOT NULL
+    product  TEXT primary key NOT NULL,
+    quantity INTEGER          NOT NULL,
+    unit     TEXT             NOT NULL
 );
 

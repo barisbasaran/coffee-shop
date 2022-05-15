@@ -1,6 +1,6 @@
 package io.baris.coffeeshop.system.config;
 
-import io.baris.coffeeshop.inventory.model.ProductUnit;
+import io.baris.coffeeshop.stock.model.ProductUnit;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,11 +1,11 @@
-package io.baris.coffeeshop.inventory;
+package io.baris.coffeeshop.stock;
 
 import io.baris.coffeeshop.checkout.model.LineItem;
 import io.baris.coffeeshop.checkout.model.ShoppingCart;
 import io.baris.coffeeshop.cqrs.event.EventManager;
-import io.baris.coffeeshop.inventory.model.InventoryProduct;
+import io.baris.coffeeshop.stock.model.StockProduct;
 import io.baris.coffeeshop.stock.model.AddStock;
-import io.baris.coffeeshop.system.config.InventoryConfig;
+import io.baris.coffeeshop.system.config.StocksConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jdbi.v3.core.Jdbi;
@@ -16,40 +16,40 @@ import static io.baris.coffeeshop.cqrs.event.EventMapper.mapToAddStock;
 import static io.baris.coffeeshop.cqrs.event.EventMapper.mapToShoppingCart;
 
 /**
- * Manages inventory
+ * Manages stocks
  */
 @Slf4j
 @RequiredArgsConstructor
-public class InventoryManager {
+public class StockManager {
 
     private final EventManager eventManager;
     private final Jdbi jdbi;
-    private final InventoryConfig inventoryConfig;
+    private final StocksConfig stocksConfig;
 
-    public List<InventoryProduct> getInventoryProducts() {
-        return jdbi.withExtension(InventoryRepository.class, InventoryRepository::getInventoryProducts);
+    public List<StockProduct> getStocks() {
+        return jdbi.withExtension(StockRepository.class, StockRepository::getStocks);
     }
 
-    public void updateInventory(final ShoppingCart shoppingCart) {
+    public void updateStocks(final ShoppingCart shoppingCart) {
         shoppingCart.getLineItems().stream()
             .map(LineItem::getProduct)
             .forEach(this::updateTotalQuantity);
     }
 
-    public void updateInventory(final AddStock addStock) {
+    public void updateStocks(final AddStock addStock) {
         updateTotalQuantity(addStock.getProduct());
     }
 
     private void updateTotalQuantity(final String product) {
         var totalQuantity = calculateTotalQuantity(product);
 
-        var inventoryProduct = InventoryProduct.builder()
+        var stockProduct = StockProduct.builder()
             .product(product)
             .quantity(totalQuantity)
-            .unit(inventoryConfig.getProductUnit(product))
+            .unit(stocksConfig.getProductUnit(product))
             .build();
-        jdbi.withExtension(InventoryRepository.class, dao ->
-            dao.updateInventoryProduct(inventoryProduct));
+        jdbi.withExtension(StockRepository.class, dao ->
+            dao.updateStocks(stockProduct));
     }
 
     private int calculateTotalQuantity(final String product) {
@@ -67,7 +67,7 @@ public class InventoryManager {
                     for (var lineItem : shoppingCart.getLineItems()) {
                         if (product.equals(lineItem.getProduct())) {
                             totalQuantity -= lineItem.getQuantity()
-                                * inventoryConfig.getProductQuantity(lineItem.getProduct());
+                                * stocksConfig.getProductQuantity(lineItem.getProduct());
                         }
                     }
                 }

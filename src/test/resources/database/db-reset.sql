@@ -1,2 +1,2 @@
 TRUNCATE TABLE events;
-TRUNCATE TABLE inventory;
+TRUNCATE TABLE stocks;

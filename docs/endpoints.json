@@ -1,0 +1,32 @@
+
+    PUT /checkout
+    {
+        "lineItems": [
+            {
+                "product": "cake",
+                "quantity": 1
+            },
+            {
+                "product": "coffee",
+                "quantity": 2
+            },
+        ]
+    }
+
+    PUT /stocks
+    {
+        "product": "cake",
+        "quantity": 10
+    }
+
+    /GET /stocks
+    [
+        {
+            "product": "cake",
+            "quantity": 17,
+            "unit": "ITEM"
+        }
+    ]
+
+
+

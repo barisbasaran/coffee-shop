@@ -14,7 +14,7 @@ import java.util.List;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
- * Serves event endpoints
+ * Serves event endpoints.json
  */
 @Path("/events")
 @Consumes(APPLICATION_JSON)

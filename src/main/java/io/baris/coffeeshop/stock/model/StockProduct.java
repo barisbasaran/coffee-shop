@@ -1,4 +1,4 @@
-package io.baris.coffeeshop.inventory.model;
+package io.baris.coffeeshop.stock.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InventoryProduct {
+public class StockProduct {
 
     String product;
     int quantity;

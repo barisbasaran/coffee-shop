@@ -5,8 +5,7 @@ import io.baris.coffeeshop.cqrs.command.CommandHandler;
 import io.baris.coffeeshop.cqrs.event.EventManager;
 import io.baris.coffeeshop.cqrs.event.EventResource;
 import io.baris.coffeeshop.cqrs.project.Projector;
-import io.baris.coffeeshop.inventory.InventoryManager;
-import io.baris.coffeeshop.inventory.InventoryResource;
+import io.baris.coffeeshop.stock.StockManager;
 import io.baris.coffeeshop.stock.StockResource;
 import io.baris.coffeeshop.system.CoffeeShopHealthCheck;
 import io.baris.coffeeshop.system.HomepageResource;
@@ -70,18 +69,17 @@ public class CoffeeShopApplication extends Application<CoffeeShopConfig> {
 
         var kafkaEventProducer = new KafkaEventProducer(configuration);
         var eventManager = new EventManager(jdbi);
-        var inventoryManager = new InventoryManager(eventManager, jdbi, configuration.getInventoryConfig());
+        var stockManager = new StockManager(eventManager, jdbi, configuration.getStocksConfig());
         var commandHandler = new CommandHandler(eventManager, kafkaEventProducer);
 
         // register resources
         environment.jersey().register(new CheckoutResource(commandHandler));
-        environment.jersey().register(new StockResource(commandHandler));
+        environment.jersey().register(new StockResource(commandHandler, stockManager));
         environment.jersey().register(new EventResource(eventManager));
-        environment.jersey().register(new InventoryResource(inventoryManager));
         environment.jersey().register(new HomepageResource());
         environment.jersey().register(new OpenApiResource());
 
-        var projector = new Projector(inventoryManager);
+        var projector = new Projector(stockManager);
         Executors.newSingleThreadExecutor().submit(() ->
             new KafkaEventConsumer(projector, configuration).subscribe()
         );

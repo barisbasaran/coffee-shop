@@ -1,0 +1,12 @@
+
+Table events {
+    event_time TIMESTAMP
+    event_type TEXT
+    event      TEXT
+}
+
+TABLE stocks {
+    product  TEXT [pk]
+    quantity INTEGER
+    unit     TEXT
+}

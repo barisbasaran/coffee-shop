@@ -17,3 +17,8 @@ Run `docker-compose --profile local up` to start application with _Docker_.
 To check that your application is running enter url `http://localhost:8080/`
 
 You may see application's health at `http://localhost:8081/healthcheck`
+
+## Architecture
+
+![Architecture](docs/CQRS%20Example.jpg)
+

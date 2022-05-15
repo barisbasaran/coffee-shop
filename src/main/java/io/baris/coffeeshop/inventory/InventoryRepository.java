@@ -1,7 +1,7 @@
 package io.baris.coffeeshop.inventory;
 
 import io.baris.coffeeshop.inventory.model.InventoryProduct;
-import io.baris.coffeeshop.product.model.ProductUnit;
+import io.baris.coffeeshop.inventory.model.ProductUnit;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
@@ -20,18 +20,20 @@ public interface InventoryRepository {
 
     @SqlQuery("SELECT * FROM inventory ORDER BY product")
     @RegisterBeanMapper(InventoryProduct.class)
-    List<InventoryProduct> getProducts();
+    List<InventoryProduct> getInventoryProducts();
 
     @SqlUpdate("DELETE FROM inventory WHERE product = ?")
-    void deleteProduct(String product);
+    void deleteInventoryProduct(String product);
 
     @SqlUpdate("INSERT INTO inventory (product, quantity, unit) VALUES (?, ?, ?)")
-    void insertProduct(String product, int quantity, ProductUnit unit);
+    void insertInventoryProduct(String product, int quantity, ProductUnit unit);
 
     @Transaction
-    default InventoryProduct updateInventory(final InventoryProduct inventoryProduct) {
-        deleteProduct(inventoryProduct.getProduct());
-        insertProduct(
+    default InventoryProduct updateInventoryProduct(
+        final InventoryProduct inventoryProduct
+    ) {
+        deleteInventoryProduct(inventoryProduct.getProduct());
+        insertInventoryProduct(
             inventoryProduct.getProduct(),
             inventoryProduct.getQuantity(),
             inventoryProduct.getUnit()

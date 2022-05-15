@@ -1,4 +1,4 @@
-package io.baris.coffeeshop.product.model;
+package io.baris.coffeeshop.inventory.model;
 
 /**
  * Units of products

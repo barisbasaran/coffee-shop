@@ -1,6 +1,5 @@
 package io.baris.coffeeshop.inventory.model;
 
-import io.baris.coffeeshop.product.model.ProductUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

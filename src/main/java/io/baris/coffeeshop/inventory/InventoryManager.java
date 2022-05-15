@@ -27,7 +27,7 @@ public class InventoryManager {
     private final InventoryConfig inventoryConfig;
 
     public List<InventoryProduct> getInventoryProducts() {
-        return jdbi.withExtension(InventoryRepository.class, InventoryRepository::getProducts);
+        return jdbi.withExtension(InventoryRepository.class, InventoryRepository::getInventoryProducts);
     }
 
     public void updateInventory(final ShoppingCart shoppingCart) {
@@ -49,7 +49,7 @@ public class InventoryManager {
             .unit(inventoryConfig.getProductUnit(product))
             .build();
         jdbi.withExtension(InventoryRepository.class, dao ->
-            dao.updateInventory(inventoryProduct));
+            dao.updateInventoryProduct(inventoryProduct));
     }
 
     private int calculateTotalQuantity(final String product) {

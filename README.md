@@ -32,25 +32,25 @@ With CQRS pattern, the data for **commands** and **queries** are **split** in th
 
 By splitting the commands and queries, the CQRS allows developers to use **different models to read and write data**.
 
-![CQRS](docs/design3.2.jpg)
+![CQRS](docs/design1.3.jpg)
 
 ## REST and Database Design
 
 The coffee shop has to manage its stocks. 
 
-The stocks go up when new products are added through the `PUT /stocks` endpoint.
+The stocks **go up** when new products are **added** through the `PUT /stocks` endpoint.
 
-The stocks go down when the products are sold through the `PUT /checkout` endpoint.
+The stocks **go down** when the products are **sold** through the `PUT /checkout` endpoint.
 
 All updates in the stocks are saved as events in the `events` table which corresponds to the **update model**.
 
 Then these events are projected to the `stocks` table which corresponds to the **read model**.
 
-![Architecture](docs/design1.1.jpg)
+![Architecture](docs/design2.1.jpg)
 
 ## Application Design
 
-![Architecture](docs/design2.jpg)
+![Architecture](docs/design3.4.jpg)
 
 ## Installation
 

@@ -20,7 +20,7 @@ import java.util.List;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
- * Serves stock endpoints.json
+ * Serves stock endpoints
  */
 @Path("/stocks")
 @Consumes(APPLICATION_JSON)

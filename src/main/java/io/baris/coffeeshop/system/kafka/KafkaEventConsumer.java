@@ -1,6 +1,6 @@
 package io.baris.coffeeshop.system.kafka;
 
-import io.baris.coffeeshop.cqrs.project.Projector;
+import io.baris.coffeeshop.cqrs.projection.StockProjector;
 import io.baris.coffeeshop.cqrs.event.model.Event;
 import io.baris.coffeeshop.cqrs.event.model.EventType;
 import io.baris.coffeeshop.system.config.CoffeeShopConfig;
@@ -27,13 +27,13 @@ import static org.apache.kafka.clients.consumer.OffsetResetStrategy.NONE;
 public class KafkaEventConsumer {
 
     private final Consumer<EventType, Event> consumer;
-    private final Projector projector;
+    private final StockProjector stockProjector;
 
     public KafkaEventConsumer(
-        final Projector projector,
+        final StockProjector stockProjector,
         final CoffeeShopConfig config
     ) {
-        this.projector = projector;
+        this.stockProjector = stockProjector;
         this.consumer = config.testEnv()
             ? new MockConsumer<>(NONE)
             : new KafkaConsumer<>(getKafkaConsumerConfig());
@@ -47,7 +47,7 @@ public class KafkaEventConsumer {
                     log.info("Event received for key={}, partition={}, offset={}, value={}",
                         record.key(), record.partition(), record.offset(), record.value()
                     );
-                    projector.projectData(record.value());
+                    stockProjector.projectData(record.value());
                 });
         }
     }

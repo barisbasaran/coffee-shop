@@ -46,5 +46,4 @@ public class StockResource {
     public List<StockProduct> getStocks() {
         return stockManager.getStocks();
     }
-
 }

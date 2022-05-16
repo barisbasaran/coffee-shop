@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Data
-public class StocksConfig {
+public class StockConfig {
 
     private static ProductConfig DEFAULT_PRODUCT_CONFIG = new ProductConfig(ProductUnit.ITEM, 1);
 

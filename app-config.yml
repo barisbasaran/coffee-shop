@@ -24,7 +24,7 @@ logging:
   loggers:
     io.baris.coffeeshop: DEBUG
 
-stocksConfig:
+stockConfig:
   productConfig:
     coffee:
       quantity: 20

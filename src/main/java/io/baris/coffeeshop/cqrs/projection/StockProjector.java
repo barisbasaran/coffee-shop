@@ -1,4 +1,4 @@
-package io.baris.coffeeshop.cqrs.project;
+package io.baris.coffeeshop.cqrs.projection;
 
 import io.baris.coffeeshop.cqrs.event.model.Event;
 import io.baris.coffeeshop.stock.StockManager;
@@ -10,7 +10,7 @@ import static io.baris.coffeeshop.cqrs.event.EventMapper.mapToShoppingCart;
 
 @Slf4j
 @RequiredArgsConstructor
-public class Projector {
+public class StockProjector {
 
     private final StockManager stockManager;
 

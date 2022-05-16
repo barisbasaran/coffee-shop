@@ -5,7 +5,7 @@ import io.baris.coffeeshop.checkout.model.ShoppingCart;
 import io.baris.coffeeshop.cqrs.event.EventManager;
 import io.baris.coffeeshop.stock.model.StockProduct;
 import io.baris.coffeeshop.stock.model.AddStock;
-import io.baris.coffeeshop.system.config.StocksConfig;
+import io.baris.coffeeshop.system.config.StockConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jdbi.v3.core.Jdbi;
@@ -24,7 +24,7 @@ public class StockManager {
 
     private final EventManager eventManager;
     private final Jdbi jdbi;
-    private final StocksConfig stocksConfig;
+    private final StockConfig stockConfig;
 
     public List<StockProduct> getStocks() {
         return jdbi.withExtension(StockRepository.class, StockRepository::getStocks);
@@ -46,7 +46,7 @@ public class StockManager {
         var stockProduct = StockProduct.builder()
             .product(product)
             .quantity(totalQuantity)
-            .unit(stocksConfig.getProductUnit(product))
+            .unit(stockConfig.getProductUnit(product))
             .build();
         jdbi.withExtension(StockRepository.class, dao ->
             dao.updateStocks(stockProduct));
@@ -67,7 +67,7 @@ public class StockManager {
                     for (var lineItem : shoppingCart.getLineItems()) {
                         if (product.equals(lineItem.getProduct())) {
                             totalQuantity -= lineItem.getQuantity()
-                                * stocksConfig.getProductQuantity(lineItem.getProduct());
+                                * stockConfig.getProductQuantity(lineItem.getProduct());
                         }
                     }
                 }

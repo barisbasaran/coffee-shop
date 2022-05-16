@@ -46,7 +46,7 @@ All updates in the stocks are saved as events in the `events` table which corres
 
 Then these events are projected to the `stocks` table which corresponds to the **read model**.
 
-![Architecture](docs/design2.1.jpg)
+![Architecture](docs/design2.5.jpg)
 
 ## Application Design
 

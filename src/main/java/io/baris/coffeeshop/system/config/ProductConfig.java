@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductConfig {
+
     private ProductUnit unit;
     private int quantity;
 }

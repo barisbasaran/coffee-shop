@@ -1,5 +1,6 @@
 
     PUT /checkout
+    Request
     {
         "lineItems": [
             {
@@ -14,12 +15,14 @@
     }
 
     PUT /stocks
+    Request
     {
         "product": "cake",
         "quantity": 10
     }
 
     /GET /stocks
+    Response
     [
         {
             "product": "cake",

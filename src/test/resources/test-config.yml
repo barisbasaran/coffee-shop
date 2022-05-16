@@ -25,7 +25,7 @@ logging:
     org.hibernate.SQL:
       level: DEBUG
 
-stocksConfig:
+stockConfig:
   productConfig:
     coffee:
       quantity: 20

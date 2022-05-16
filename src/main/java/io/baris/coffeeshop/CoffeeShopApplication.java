@@ -4,7 +4,7 @@ import io.baris.coffeeshop.checkout.CheckoutResource;
 import io.baris.coffeeshop.cqrs.command.CommandHandler;
 import io.baris.coffeeshop.cqrs.event.EventManager;
 import io.baris.coffeeshop.cqrs.event.EventResource;
-import io.baris.coffeeshop.cqrs.project.Projector;
+import io.baris.coffeeshop.cqrs.projection.StockProjector;
 import io.baris.coffeeshop.stock.StockManager;
 import io.baris.coffeeshop.stock.StockResource;
 import io.baris.coffeeshop.system.CoffeeShopHealthCheck;
@@ -69,7 +69,7 @@ public class CoffeeShopApplication extends Application<CoffeeShopConfig> {
 
         var kafkaEventProducer = new KafkaEventProducer(configuration);
         var eventManager = new EventManager(jdbi);
-        var stockManager = new StockManager(eventManager, jdbi, configuration.getStocksConfig());
+        var stockManager = new StockManager(eventManager, jdbi, configuration.getStockConfig());
         var commandHandler = new CommandHandler(eventManager, kafkaEventProducer);
 
         // register resources
@@ -79,9 +79,9 @@ public class CoffeeShopApplication extends Application<CoffeeShopConfig> {
         environment.jersey().register(new HomepageResource());
         environment.jersey().register(new OpenApiResource());
 
-        var projector = new Projector(stockManager);
+        var stockProjector = new StockProjector(stockManager);
         Executors.newSingleThreadExecutor().submit(() ->
-            new KafkaEventConsumer(projector, configuration).subscribe()
+            new KafkaEventConsumer(stockProjector, configuration).subscribe()
         );
     }
 }

@@ -28,6 +28,11 @@
             "product": "cake",
             "quantity": 17,
             "unit": "ITEM"
+        },
+        {
+            "product": "coffee",
+            "quantity": 5000,
+            "unit": "GR"
         }
     ]
 

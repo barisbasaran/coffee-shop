@@ -47,7 +47,7 @@ public class KafkaEventConsumer {
                     log.info("Event received for key={}, partition={}, offset={}, value={}",
                         record.key(), record.partition(), record.offset(), record.value()
                     );
-                    stockProjector.projectData(record.value());
+                    stockProjector.projectStocks(record.value());
                 });
         }
     }

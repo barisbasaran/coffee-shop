@@ -18,9 +18,11 @@ Also read model is separated from update model by following the **Command Query 
 
 With event Sourcing, all changes to application state are stored as a sequence of events. 
  
-This forms an append-only **event log**.
+This forms an append-only **event log**. Events are **immutable**, they cannot be changed.
 
 An entity’s current state can be created by replaying all the events in order of occurrence.
+
+Events work best when you're modeling how something **evolves over time**.
 
 ## CQRS basics
 
@@ -32,7 +34,7 @@ With CQRS pattern, the data for **commands** and **queries** are **split** in th
 
 By splitting the commands and queries, the CQRS allows developers to use **different models to read and write data**.
 
-![CQRS](docs/design1.3.jpg)
+![](docs/design1.3.jpg)
 
 ## REST and Database Design
 
@@ -44,13 +46,13 @@ The stocks **go down** when the products are **sold** through the `PUT /checkout
 
 All updates in the stocks are saved as events in the `events` table which corresponds to the **update model**.
 
-Then these events are projected to the `stocks` table which corresponds to the **read model**.
+Then these events are **projected** to the `stocks` table which corresponds to the **read model**.
 
-![Architecture](docs/design2.5.jpg)
+![](docs/design2.6.jpg)
 
 ## Application Design
 
-![Architecture](docs/design3.4.jpg)
+![](docs/design3.4.jpg)
 
 ## Installation
 

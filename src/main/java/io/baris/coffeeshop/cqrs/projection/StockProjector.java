@@ -14,7 +14,7 @@ public class StockProjector {
 
     private final StockManager stockManager;
 
-    public void projectData(final Event event) {
+    public void projectStocks(final Event event) {
         switch (event.getEventType()) {
             case CHECKOUT -> stockManager.updateStocks(mapToShoppingCart(event));
             case ADD_STOCK -> stockManager.updateStocks(mapToAddStock(event));

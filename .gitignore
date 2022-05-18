@@ -18,6 +18,9 @@
 *.class
 target
 dependency-reduced-pom.xml
+node_modules
+coverage
+build
 
 # OS files
 .DS_Store
@@ -27,3 +30,6 @@ dependency-reduced-pom.xml
 .aws
 .config
 .exec
+npm-debug.log
+package-lock.json
+yarn.lock
